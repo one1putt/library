@@ -40,7 +40,7 @@ function refreshLibrary() {
     library.innerHTML = ''
 
     myLibrary.forEach( (book, index) => {
-        let readNotRead = book.read ? 'read' : 'not read'
+        let readNotRead = book.read ? 'Read' : 'Not read'
         let cardDiv = document.createElement('div')
         cardDiv.className = 'book-card'
         cardDiv.setAttribute('data-index', index)
@@ -55,7 +55,7 @@ function refreshLibrary() {
                 <td>${book.pages}</td>
             </tr>
             <tr>
-                <td>read?</td>
+                <td><button class='status'>Status</button></td>
                 <td>${readNotRead}</td>
             </tr>
         </table>`
@@ -68,13 +68,23 @@ function refreshLibrary() {
             removeCard(e)
         })
     }
+    const statusButtons = document.querySelectorAll('.status')
+    for (button of statusButtons) {
+        button.addEventListener('click', (e) => {
+            changeReadStatus(e)
+        })
+    }
+}
+
+function changeReadStatus(e) {
+    let index = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-index')
+    myLibrary[index].read ? myLibrary[index].read = false : myLibrary[index].read = true
+    refreshLibrary()
 }
 
 function removeCard(e) {
-    console.log(myLibrary)
     let index = e.target.parentElement.parentElement.getAttribute('data-index')
     myLibrary.splice(index, 1)
-    console.log(myLibrary)
     refreshLibrary()
 }
 

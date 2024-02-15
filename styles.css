@@ -127,8 +127,8 @@ form {
     justify-content: space-between;
 }
 
-.delete {
-    padding: 0;
+.delete, .status {
+    padding: 1px;
     font-size: 1rem;
     border-radius: 0;
     box-shadow: 1px 1px 5px black;
