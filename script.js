@@ -81,10 +81,22 @@ function refreshLibrary() {
 // executed when the save button is pushed to add a new book
 function addBookToLibrary(e) {
     e.preventDefault()
+    let read
+    console.log(document.forms[0])
+    let radios = document.querySelectorAll("input[name='read-notread']")
+    console.log(radios)
+    radios.forEach((radio) => {
+        if (radio.checked) {
+            read = radio.value
+            read = (read === 'true')
+        }
+    })
+    console.log(read)
     book = new Book(document.forms[0][0].value, 
                     document.forms[0][1].value,
                     document.forms[0][2].value, 
-                    document.forms[0][3].value)
+                    read)
+    console.log(book)
     myLibrary.push(book)
     sideBar.removeChild(sideBar.lastChild)   
     refreshLibrary()
@@ -116,11 +128,11 @@ function enterForm() {
                         <input id="pages" type="text">
                         <div class="radio">
                             <div>
-                                <input id="read" name="read-notread" type="radio" value="true">
+                                <input id="read" name="read-notread" type="radio" value=true>
                                 <label for="read">Read</label><br>
                             </div>
                             <div>
-                                <input id="not-read" type="radio" name="read-notread" value="false">
+                                <input id="not-read" type="radio" name="read-notread" value=false>
                                 <label for="not-read">Not read</label>
                             </div>  
                         </div>
