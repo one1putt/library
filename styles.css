@@ -47,10 +47,13 @@ body {
     background-color: #E8D8C4;
     border: 1px solid black;
     border-radius: 10px;
-    height: 150px;
+    height: 175px;
     width: 250px;
     padding: 20px;
     box-shadow: 3px 3px 10px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .book-card h4 {
@@ -125,6 +128,7 @@ form {
 .title {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .delete, .status {
