@@ -2,8 +2,10 @@ const myLibrary = [] //this will be an array of Book objects
 const addButton = document.querySelector('.add-book')
 const sideBar = document.querySelector('.side-bar')
 addButton.addEventListener('click', enterForm)
-sideBar.addEventListener('submit', (e) => addBookToLibrary(e))
 const library = document.querySelector('.library')
+const dialog = document.querySelector('#dialog')
+const saveButton = document.querySelector('.save')
+saveButton.addEventListener('click', (e) => closeForm(e))
 
 // This is Book constructor
 function Book(title, author, pages, read) {
@@ -78,30 +80,6 @@ function refreshLibrary() {
     }
 }
 
-// executed when the save button is pushed to add a new book
-function addBookToLibrary(e) {
-    e.preventDefault()
-    let read
-    console.log(document.forms[0])
-    let radios = document.querySelectorAll("input[name='read-notread']")
-    console.log(radios)
-    radios.forEach((radio) => {
-        if (radio.checked) {
-            read = radio.value
-            read = (read === 'true')
-        }
-    })
-    console.log(read)
-    book = new Book(document.forms[0][0].value, 
-                    document.forms[0][1].value,
-                    document.forms[0][2].value, 
-                    read)
-    console.log(book)
-    myLibrary.push(book)
-    sideBar.removeChild(sideBar.lastChild)   
-    refreshLibrary()
-}
-
 
 function changeReadStatus(e) {
     let index = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-index')
@@ -118,29 +96,33 @@ function removeCard(e) {
 
 // this function gets executed when the add book button is pushed. It creates the whole html for the form and displays it in the sideBar
 function enterForm() {
-    const addBookForm = document.createElement('div')
-    let formHTML = `<form action="">
-                        <label for="title">Title</label>
-                        <input id="title" type="text" focus>
-                        <label for="author">Author</label>
-                        <input id="author" type="text">
-                        <label for="pages">Number of Pages</label>
-                        <input id="pages" type="text">
-                        <div class="radio">
-                            <div>
-                                <input id="read" name="read-notread" type="radio" value=true>
-                                <label for="read">Read</label><br>
-                            </div>
-                            <div>
-                                <input id="not-read" type="radio" name="read-notread" value=false>
-                                <label for="not-read">Not read</label>
-                            </div>  
-                        </div>
-                        <button class="save">Save</button>
-                    </form>`
-    addBookForm.innerHTML   = formHTML
-    sideBar.appendChild(addBookForm)
+    dialog.showModal()
 }
+
+// executed when the save button is pushed to add a new book
+function closeForm(e) {
+    e.preventDefault()
+    let read
+    let radios = document.querySelectorAll("input[name='read-notread']")
+    radios.forEach((radio) => {
+        if (radio.checked) {
+            read = radio.value
+            read = (read === 'true')
+        }
+    })
+    book = new Book(document.forms[0][0].value, 
+                    document.forms[0][1].value,
+                    document.forms[0][2].value, 
+                    read)
+    myLibrary.push(book)
+    // reset the form so this books info it not preloaded.
+    document.forms[0][0].value = ''
+    document.forms[0][1].value = ''
+    document.forms[0][2].value = ''
+    dialog.close()
+    refreshLibrary()
+}
+
 
 refreshLibrary()
 

@@ -19,6 +19,29 @@
     <div class="library">
 
     </div>
+
+    <dialog id="dialog">
+        <form>
+            <label for="title">Title</label>
+            <input id="title" type="text" autofocus>
+            <label for="author">Author</label>
+            <input id="author" type="text">
+            <label for="pages">Number of Pages</label>
+            <input id="pages" type="text">
+            <div class="radio">
+                <div>
+                    <input id="read" name="read-notread" type="radio" value=true>
+                    <label for="read">Read</label><br>
+                </div>
+                <div>
+                    <input id="not-read" type="radio" name="read-notread" value=false>
+                    <label for="not-read">Not read</label>
+                </div>  
+            </div>
+            <button class="save" value="default">Save</button>
+        </form>
+
+    </dialog>
     
 </body>
 </html> 
